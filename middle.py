@@ -8,13 +8,13 @@ import time
 
 app= FastAPI()
 
-user_db={"Toyeebah":{"username":"Teebah", "name": "Toyeebah", "email":"tarowona@yahoo.com", "password":"Teebah","age": 20}, "Tope":{"username":"Topie", "name": "Tope", "email": "topetee@yahoo.com", "password":"totope", "age": 55}}
+user_db={"Toyeebah":{"FirstName":"Teebah", "LastName": "Toyeebah", "email":"tarowona@yahoo.com", "Height":160.2,"age": 20}, "Tope":{"FirstName":"Topie", "LastName": "Tope", "email": "topetee@yahoo.com", "Height":145.2, "age": 55}}
 
 class User(BaseModel):
-    username:str
-    name:str
+    FirstName:str
+    LastName:str
     email:EmailStr
-    password:str
+    height:float
     age:int
 
 
@@ -49,11 +49,11 @@ app.add_middleware(
 @app.post("/signup",status_code=status.HTTP_201_CREATED)
 async def sign_up(user:Annotated[User,Body()]):
     for Id, user_profile in user_db.items():
-        if Id == user.username and user_profile["email"] == user.email:
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT,detail="Email and username already exist")
+        if Id == user.FirstName and user_profile["email"] == user.email:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT,detail="Email and FirstName already exist")
         
 
-    user_db[user.username] = user.model_dump()
+    user_db[user.FirstName] = user.model_dump()
 
     return "Profile Created Successfully"
 
