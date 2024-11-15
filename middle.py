@@ -1,4 +1,3 @@
-
 from typing import Annotated
 from pydantic import BaseModel, EmailStr
 from fastapi import FastAPI,Request,HTTPException,status, Body
@@ -9,7 +8,7 @@ import time
 
 app= FastAPI()
 
-user_db={"Teebah":"Big girl"}
+user_db={"Toyeebah":{"username":"Teebah", "name": "Toyeebah", "email":"tarowona@yahoo.com", "password":"Teebah","age": 20}, "Tope":{"username":"Topie", "name": "Tope", "email": "topetee@yahoo.com", "password":"totope", "age": 55}}
 
 class User(BaseModel):
     username:str
@@ -59,7 +58,5 @@ async def sign_up(user:Annotated[User,Body()]):
     return "Profile Created Successfully"
 
 
-@app.get("/user",status_code = status.HTTP_200_OK)
-async def get_users():
-    return user_db
+
 
